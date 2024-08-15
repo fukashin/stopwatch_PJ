@@ -8,3 +8,5 @@ class StopWatch:
         self.is_running: bool = False
         self.rap_time: list = []
         self.split_time: list = []
+    def start(self):
+        self.is_running = True
