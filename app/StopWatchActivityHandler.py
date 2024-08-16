@@ -6,8 +6,6 @@ class StopWatchActivityHandler:
     def start(self):
         # ストップウォッチを開始
         self.stopwatch.start()
-        # カウントアップを開始する内部メソッドを呼び出す
-        self._start_counting()
 
     def _start_counting(self):
         # ストップウォッチが動作中であれば
