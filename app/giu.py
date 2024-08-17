@@ -16,6 +16,16 @@ time_label = tk.Label(root, text="00: 00 : 00.00", font=large_font)
 # ラベルを中央に配置
 time_label.pack(expand=True)  # 余分なスペースをラベルに割り当てて、画面の中央に配置
 
+# ラップタイムとスプリットタイムのラベル
+label_frame = tk.Frame(root)
+label_frame.pack(pady=10)
+
+lap_label = tk.Label(label_frame, text="ラップタイム", font=medium_font)
+lap_label.grid(row=0, column=0, padx=50)
+
+split_label = tk.Label(label_frame, text="スプリットタイム", font=medium_font)
+split_label.grid(row=0, column=1, padx=50)
+
 # ボタン
 button_frame = tk.Frame(root)
 button_frame.pack(pady=20)
