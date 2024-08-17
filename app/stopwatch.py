@@ -2,11 +2,16 @@ import time
 
 
 class StopWatch:
+
+    # コンストラクター
     def __init__(self):
-        # コンストラクターの中で初期化処理を行う
         self.elapsed_time: int = 0
         self.is_running: bool = False
         self.rap_time: list = []
         self.split_time: list = []
+
     def start(self):
         self.is_running = True
+
+    def stop(self):
+        self.is_running = False
