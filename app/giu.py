@@ -20,11 +20,22 @@ time_label.pack(side="top", pady=20)  # 上部に配置し、上下に余白を�
 label_frame = tk.Frame(root)
 label_frame.pack(pady=10)
 
+
 lap_label = tk.Label(label_frame, text="ラップタイム", font=medium_font)
-lap_label.grid(row=0, column=0, padx=50)
+lap_label.grid(row=0, column=0, padx=45, sticky="w")
 
 split_label = tk.Label(label_frame, text="スプリットタイム", font=medium_font)
-split_label.grid(row=0, column=1, padx=50)
+split_label.grid(row=0, column=1, padx=45, sticky="w")
+
+# ラップタイムの表示
+for i in range(3):
+    lap_time = tk.Label(label_frame, text=f"{i+1}. -- : -- : --", font=medium_font)
+    lap_time.grid(row=i+1, column=0,padx=48, sticky="w")
+
+# スプリットタイムの表示
+for i in range(3):
+    split_time = tk.Label(label_frame, text=f"{i+1}. -- : -- : --", font=medium_font)
+    split_time.grid(row=i+1, column=1, padx=48,sticky="w")
 
 # ボタン
 button_frame = tk.Frame(root)
