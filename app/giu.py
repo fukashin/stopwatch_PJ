@@ -13,8 +13,8 @@ medium_font = font.Font(family="Helvetica", size=14)  # 中程度の文字用
 # メインタイム表示
 time_label = tk.Label(root, text="00: 00 : 00.00", font=large_font)
 
-# ラベルを中央に配置
-time_label.pack(expand=True)  # 余分なスペースをラベルに割り当てて、画面の中央に配置
+# ラベルを中央の上部に配置
+time_label.pack(side="top", pady=20)  # 上部に配置し、上下に余白を設定
 
 # ラップタイムとスプリットタイムのラベル
 label_frame = tk.Frame(root)
