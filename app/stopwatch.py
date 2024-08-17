@@ -28,3 +28,11 @@ class StopWatch:
             self.rap_time.append(rap_time)
         else:
             raise Exception("ラップタイム取得中にエラーが発生しました")
+        
+    def reset(self):
+        if not self.is_running:
+            self.elapsed_time = 0
+            self.rap_time.clear()
+            self.split_time.clear()
+        else:
+            raise Exception("動作中にリセットが実行されました")
