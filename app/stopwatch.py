@@ -33,3 +33,6 @@ class StopWatch:
             self.split_time.clear()
         else:
             raise Exception("動作中にリセットが実行されました")
+        
+    def count_up(self):
+        self.elapsed_time += 1
