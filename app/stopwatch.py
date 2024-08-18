@@ -1,3 +1,5 @@
+import datetime
+
 class StopWatch:
 
     # コンストラクター
@@ -36,3 +38,7 @@ class StopWatch:
         
     def count_up(self):
         self.elapsed_time += 1
+
+    def get_display_time(self):
+        display_time = datetime.timedelta(milliseconds=self.elapsed_time).__str__()[:-4]
+        return display_time
