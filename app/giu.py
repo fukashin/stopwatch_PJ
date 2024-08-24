@@ -16,6 +16,8 @@ medium_font = font.Font(family="Helvetica", size=14)  # 中程度の文字用
     # StopWatchActivityHandlerのインスタンス作成
 activity_handler = StopWatchActivityHandler()
 
+
+
 # メインタイム表示用フレーム
 time_frame = tk.Frame(root)
 time_frame.pack(pady=20)
@@ -58,15 +60,27 @@ def update_time():
         main_time_label.config(text=activity_handler.stopwatch.elapsed_time)  # ここで時間を更新
         root.after(10, update_time)  # 10ms後に再度この関数を呼び出す
 
+# ボタンの表示を更新する関数
+def update_button_label():
+    if activity_handler.stopwatch.is_running:
+        reset_spl_button.config(text="リセット")
+        start_stop_button.config(text="スタート")
+    else:
+        reset_spl_button.config(text="スプリ/ラップ")
+        start_stop_button.config(text="ストップ")
+
 # ボタン
 button_frame = tk.Frame(root)
 button_frame.pack(pady=20)
 
-reset_button = tk.Button(button_frame, text="リセット", font=medium_font, width=10)
-reset_button.grid(row=0, column=0, padx=20)
+reset_spl_button = tk.Button(button_frame, text="リセット", font=medium_font, width=10)
+reset_spl_button.grid(row=0, column=0, padx=20)
 
-start_button = tk.Button(button_frame, text="スタート", font=medium_font, width=10)
-start_button.grid(row=0, column=1, padx=20)
+start_stop_button = tk.Button(button_frame, text="スタート", font=medium_font, width=10)
+start_stop_button.grid(row=0, column=1, padx=20)
+
+# ボタンラベルの更新
+update_button_label()
 
 # メインループ
 root.mainloop()
