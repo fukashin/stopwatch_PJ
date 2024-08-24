@@ -60,6 +60,14 @@ def update_time():
         main_time_label.config(text=activity_handler.stopwatch.elapsed_time)  # ここで時間を更新
         root.after(10, update_time)  # 10ms後に再度この関数を呼び出す
 
+
+# スタート、ストップボタンを押したときの処理関数
+def start_stop_stopwatch():
+    if activity_handler.stopwatch.is_running:
+        activity_handler.stop()
+    else:
+        activity_handler.start()
+
 # ボタンの表示を更新する関数
 def update_button_label():
     if activity_handler.stopwatch.is_running:
@@ -84,3 +92,23 @@ update_button_label()
 
 # メインループ
 root.mainloop()
+
+
+# １ボタン押したときの処理を追加
+# ２スプリとラップのボンタ処理追加
+# ３スプリラップ表示
+# ４時間の更新
+# ５時間の表示
+
+
+# # ボタンの作成と関数の関連付け
+# button_frame = tk.Frame(root)
+# button_frame.pack(pady=20)
+
+# reset_button = tk.Button(button_frame, text="リセット", font=medium_font, width=10, command=reset_stopwatch)
+# reset_button.grid(row=0, column=0, padx=20)
+
+# start_stop_button = tk.Button(button_frame, text="スタート", font=medium_font, width=10, command=start_stop_stopwatch)
+# start_stop_button.grid(row=0, column=1, padx=20)
+
+
