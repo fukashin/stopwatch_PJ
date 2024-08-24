@@ -65,8 +65,22 @@ def update_time():
 def start_stop_stopwatch():
     if activity_handler.stopwatch.is_running:
         activity_handler.stop()
+        update_button_label()
     else:
         activity_handler.start()
+        update_button_label()
+
+# リセット、スプリ/ラップを押したときの処理関数
+def reset_spl_button():
+    if activity_handler.stopwatch.is_running:
+        activity_handler.reset()
+        rap_time = activity_handler.stopwatch.self.rap_time
+        print(rap_time)
+        sprit_time = activity_handler.stopwatch.split_time
+        print(sprit_time)
+    else:
+        activity_handler.rap_split()
+        
 
 # ボタンの表示を更新する関数
 def update_button_label():
@@ -77,14 +91,15 @@ def update_button_label():
         reset_spl_button.config(text="スプリ/ラップ")
         start_stop_button.config(text="ストップ")
 
+
 # ボタン
 button_frame = tk.Frame(root)
 button_frame.pack(pady=20)
 
-reset_spl_button = tk.Button(button_frame, text="リセット", font=medium_font, width=10)
+reset_spl_button = tk.Button(button_frame, text="リセット", font=medium_font, width=10,command=reset_spl_button)
 reset_spl_button.grid(row=0, column=0, padx=20)
 
-start_stop_button = tk.Button(button_frame, text="スタート", font=medium_font, width=10)
+start_stop_button = tk.Button(button_frame, text="スタート", font=medium_font, width=10,command=start_stop_stopwatch)
 start_stop_button.grid(row=0, column=1, padx=20)
 
 # ボタンラベルの更新
@@ -95,7 +110,7 @@ root.mainloop()
 
 
 # １ボタン押したときの処理を追加
-# ２スプリとラップのボンタ処理追加
+# ２スプリとラップのボタン処理追加
 # ３スプリラップ表示
 # ４時間の更新
 # ５時間の表示
