@@ -62,6 +62,7 @@ for i in range(3):
 def update_time():
     if activity_handler.stopwatch.is_running:
         main_time_label.config(text=activity_handler.stopwatch.elapsed_time)  # ここで時間を更新
+        activity_handler.stopwatch.count_up()
         root.after(10, update_time)  # 10ms後に再度この関数を呼び出す
 
 
@@ -73,6 +74,7 @@ def start_stop_stopwatch():
     else:
         activity_handler.start()
         update_button_label()
+        update_time()
 
 # リセット、スプリ/ラップボタンを押したときの処理関数
 def reset_spl_button():
@@ -87,17 +89,30 @@ def reset_spl_button():
 
         # ラップタイムを取得して表示
         rap_times = activity_handler.stopwatch.rap_time
-        # 取得したラップタイムをラベルに表示（最大で3つのラップタイムまで）
-        for i, time in enumerate(rap_times):
-            if i < len(lap_time_labels):  # ラベルの数に応じて表示を制限
-                lap_time_labels[i].config(text=f"{i+1}. {time}")  # ラベルを更新
+        # ラップタイムの要素数が表示以上か判定
+        if len(rap_times) >= len(lap_time_labels):
+            # ラップタイムが3つ以上ある場合、後ろから3つの要素を取り出す
+            display_times = rap_times[-len(lap_time_labels):]  # 後ろから3つの要素を取得
+        else:
+            # ラップタイムが3つ未満の場合、そのまま全てを表示
+            display_times = rap_times
+
+        # 取得したラップタイムをラベルに表示
+        for i, time in enumerate(display_times):
+            lap_time_labels[i].config(text=f"{i+1}. {time}")  # ラベルを更新
 
         # スプリットタイムを取得して表示
         split_times = activity_handler.stopwatch.split_time
-        # 取得したスプリットタイムをラベルに表示（最大で3つのスプリットタイムまで）
-        for i, time in enumerate(split_times):
-            if i < len(split_time_labels):  # ラベルの数に応じて表示を制限
-                split_time_labels[i].config(text=f"{i+1}. {time}")  # ラベルを更新
+        if len(split_times) >= len(split_time_labels):
+            # スプリットタイムも後ろから3つの要素を取り出す
+            display_split_times = split_times[-len(split_time_labels):]
+        else:
+            # スプリットタイムが3つ未満の場合、そのまま全てを表示
+            display_split_times = split_times
+
+        for i, time in enumerate(display_split_times):
+            split_time_labels[i].config(text=f"{i+1}. {time}")  # ラベルを更新
+
 
     # ストップウォッチが動作していない場合
     else:
@@ -140,7 +155,7 @@ reset_spl_button.grid(row=0, column=0, padx=20)
 start_stop_button = tk.Button(button_frame, text="スタート", font=medium_font, width=10,command=start_stop_stopwatch)
 start_stop_button.grid(row=0, column=1, padx=20)
 
-# ボタンラベルの更新
+# 初期のボタンラベルの更新
 update_button_label()
 
 # メインループ
