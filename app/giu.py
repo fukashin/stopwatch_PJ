@@ -6,7 +6,7 @@ from StopWatchActivityHandler import StopWatchActivityHandler
 # メインウィンドウの初期化
 root = tk.Tk()
 root.title("ストップウォッチ")
-root.geometry("700x400")  # 幅500px、高さ300pxのウィンドウ
+root.geometry("700x400")  # 幅700px、高さ400pxのウィンドウ
 
 # フォント設定
 large_font = font.Font(family="Helvetica", size=48, weight="bold")  # 大きな文字用
@@ -119,19 +119,16 @@ def reset_spl_button():
         # ストップウォッチが動作中ならリセット処理を行う
         activity_handler.reset()
 
-        # リセット後のラップタイムを取得して表示
-        rap_times = activity_handler.stopwatch.rap_time
-        # 取得したラップタイムをラベルに表示（最大で3つのラップタイムまで）
-        for i, time in enumerate(rap_times):
-            if i < len(lap_time_labels):  # ラベルの数に応じて表示を制限
-                lap_time_labels[i].config(text=f"{i+1}. {time}")  # ラベルを更新
+        # タイムラベルをリセット
+        main_time_label.config(text="00: 00 : 00")
+        millisecond_label.config(text=".00")
+        
+        # ラップタイムとスプリットタイムのラベルをリセット
+        for lap_time_label in lap_time_labels:
+            lap_time_label.config(text=f"{lap_time_labels.index(lap_time_label)+1}. -- : -- : --")
+        for split_time_label in split_time_labels:
+            split_time_label.config(text=f"{split_time_labels.index(split_time_label)+1}. -- : -- : --")
 
-        # リセット後のスプリットタイムを取得して表示
-        split_times = activity_handler.stopwatch.split_time
-        # 取得したスプリットタイムをラベルに表示（最大で3つのスプリットタイムまで）
-        for i, time in enumerate(split_times):
-            if i < len(split_time_labels):  # ラベルの数に応じて表示を制限
-                split_time_labels[i].config(text=f"{i+1}. {time}")  # ラベルを更新
         
 
 # ボタンの表示を更新する関数
