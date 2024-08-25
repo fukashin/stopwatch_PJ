@@ -9,6 +9,7 @@ class StopWatch:
         self.is_running: bool = False
         self.rap_time: list = []
         self.split_time: list = []
+        self.display_time = self.get_display_time()
 
     # メソッド
     def start(self):
@@ -39,6 +40,7 @@ class StopWatch:
         
     def count_up(self):
         self.elapsed_time += 1
+        self.display_time = self.get_display_time()
 
     def get_display_time(self):
         timedelta = datetime.timedelta(milliseconds=self.elapsed_time)
