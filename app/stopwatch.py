@@ -1,5 +1,6 @@
 import datetime
 
+
 class StopWatch:
 
     # コンストラクター
@@ -40,5 +41,9 @@ class StopWatch:
         self.elapsed_time += 1
 
     def get_display_time(self):
-        display_time = datetime.timedelta(milliseconds=self.elapsed_time).__str__()[:-4]
-        return display_time
+        timedelta = datetime.timedelta(milliseconds=self.elapsed_time)
+        total_seconds = int(timedelta.total_seconds())
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        milliseconds = timedelta.microseconds // 10000  # ミリ秒を2桁に丸める
+        return f"{hours:02}:{minutes:02}:{seconds:02}.{milliseconds:02}"
