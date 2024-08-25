@@ -35,6 +35,7 @@ class StopWatch:
             self.elapsed_time = 0
             self.rap_time.clear()
             self.split_time.clear()
+            self.display_time = self.get_display_time()
         else:
             raise Exception("動作中にリセットが実行されました")
         
