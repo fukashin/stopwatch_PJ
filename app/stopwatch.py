@@ -1,5 +1,6 @@
 import datetime
 
+
 class StopWatch:
 
     # コンストラクター
@@ -8,6 +9,7 @@ class StopWatch:
         self.is_running: bool = False
         self.rap_time: list = []
         self.split_time: list = []
+        self.display_time = self.get_display_time()
 
     # メソッド
     def start(self):
@@ -33,12 +35,19 @@ class StopWatch:
             self.elapsed_time = 0
             self.rap_time.clear()
             self.split_time.clear()
+            self.display_time = self.get_display_time()
         else:
             raise Exception("動作中にリセットが実行されました")
         
     def count_up(self):
-        self.elapsed_time += 1
+        if self.elapsed_time < 359999999:
+            self.elapsed_time += 1
+            self.display_time = self.get_display_time()
 
     def get_display_time(self):
-        display_time = datetime.timedelta(milliseconds=self.elapsed_time).__str__()[:-4]
-        return display_time
+        timedelta = datetime.timedelta(milliseconds=self.elapsed_time)
+        total_seconds = int(timedelta.total_seconds())
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        milliseconds = timedelta.microseconds // 10000  # ミリ秒を2桁に丸める
+        return f"{hours:02}:{minutes:02}:{seconds:02}.{milliseconds:02}"
