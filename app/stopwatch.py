@@ -40,8 +40,9 @@ class StopWatch:
             raise Exception("動作中にリセットが実行されました")
         
     def count_up(self):
-        self.elapsed_time += 1
-        self.display_time = self.get_display_time()
+        if self.elapsed_time < 359999999:
+            self.elapsed_time += 1
+            self.display_time = self.get_display_time()
 
     def get_display_time(self):
         timedelta = datetime.timedelta(milliseconds=self.elapsed_time)
