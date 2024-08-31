@@ -9,6 +9,10 @@ root.title("ストップウォッチ")
 root.geometry("700x400")  # 幅700px、高さ400pxのウィンドウ
 root.configure(fg_color="#F0F0F0", bg_color="#F0F0F0")  # 背景色を薄いグレーに設定
 
+# ウィンドウのサイズを固定
+root.resizable(False, False)  # 幅と高さのサイズ変更を無効にする
+
+
 # フォント設定
 large_font = ctk.CTkFont(family="Helvetica", size=68, weight="bold")  # 大きな文字用
 small_font = ctk.CTkFont(family="Helvetica", size=24, weight="bold")  # ミリ秒部分の小さな文字用
@@ -144,14 +148,29 @@ def update_button_label():
 button_bg_color = "#007b99"  # ボタンの背景色
 button_fg_color = "white"    # ボタンの文字色
 
+
 # ボタン
 button_frame = ctk.CTkFrame(root,fg_color="#F0F0F0", bg_color="#F0F0F0")
 button_frame.pack(pady=20)
 
-reset_spl_button = ctk.CTkButton(button_frame, text="リセット", font=medium_font, width=10,command=reset_spl_button,fg_color=button_bg_color, text_color=button_fg_color)
+reset_spl_button = ctk.CTkButton(button_frame,
+                                 text="リセット",
+                                 font=medium_font,
+                                 width=150,
+                                 height=50,
+                                 command=reset_spl_button,
+                                 fg_color=button_bg_color,
+                                 text_color=button_fg_color)
 reset_spl_button.grid(row=0, column=0, padx=20)
 
-start_stop_button = ctk.CTkButton(button_frame, text="スタート", font=medium_font, width=10,command=start_stop_stopwatch,fg_color=button_bg_color, text_color=button_fg_color)
+start_stop_button = ctk.CTkButton(button_frame,
+                                 text="スタート",
+                                 font=medium_font,
+                                 width=150,
+                                 height=50,
+                                 command=start_stop_stopwatch,
+                                 fg_color=button_bg_color,
+                                 text_color=button_fg_color)
 start_stop_button.grid(row=0, column=1, padx=20)
 
 # 初期のボタンラベルの更新
