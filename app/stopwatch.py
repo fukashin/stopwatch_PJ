@@ -10,9 +10,9 @@ class StopWatch:
         self.is_running: bool = False
         self.rap_time: list = []
         self.split_time: list = []
-        self.display_time = self.get_display_time(0)
-        self.rap_display_time: list = []
-        self.split_display_time: list = []
+        self.display_time = self.get_display_time(0) # [ ["XX:XX:XX", ".XX"], ... ]
+        self.rap_display_time: list = [] # ["XX:XX:XX.XX", ...]
+        self.split_display_time: list = [] # ["XX:XX:XX.XX", ...]
         self.count_up_time: datetime = None
 
     # メソッド
@@ -25,12 +25,9 @@ class StopWatch:
     def record_split_time(self):
         self.split_time.append(self.elapsed_time)
         # スプリットタイムをフォーマットされた形式で格納
-        split_display_time = self.get_display_time(self.split_time[-1])
-
-        # チームA修正箇所
-        # スプリラップ用の時間変換を使用する場合
-        # split_display_time = self.get_display_time2(self.split_time[-1])
-        self.set_split_display_time(split_display_time)
+        split_display_time: list = self.get_display_time(self.split_time[-1])
+        # XX:XX:XX.XX の形式で格納
+        self.set_split_display_time(split_display_time[0] + split_display_time[1])
 
     def record_rap_time(self):
         if self.split_time.__len__() == 1:
@@ -43,11 +40,9 @@ class StopWatch:
         else:
             raise Exception("ラップタイム取得中にエラーが発生しました")
         # ラップタイムをフォーマットされた形式で格納
-        rap_display_time = self.get_display_time1(self.rap_time[-1])
-        # チームA修正箇所
-        # スプリラップ用の時間変換を使用する場合
-        # rap_display_time = self.get_display_time2(self.rap_time[-1])
-        self.set_rap_display_time(rap_display_time)
+        rap_display_time: list = self.get_display_time(self.rap_time[-1])
+        # XX:XX:XX.XX の形式で格納
+        self.set_rap_display_time(rap_display_time[0] + rap_display_time[1])
         
     def reset(self):
         if not self.is_running:
@@ -85,27 +80,12 @@ class StopWatch:
         minutes, seconds = divmod(remainder, 60)
         milliseconds = timedelta.microseconds // 10000  # ミリ秒を2桁に丸める
         # 時:分:秒と.ミリ秒に分けて配列として戻す
-        return [f"{hours:02}:{minutes:02}:{seconds:02}", f".{milliseconds:02}"]
-    
-    # チームA修正箇所
-    # # スプリラップ用の時間変換
-    # def get_display_time2(self, milliseconds):
-    #     # timedelta型に変換
-    #     timedelta = datetime.timedelta(milliseconds=milliseconds)
-    #     # 時:分:秒.ミリ秒の計算
-    #     total_seconds = int(timedelta.total_seconds())
-    #     hours, remainder = divmod(total_seconds, 3600)
-    #     minutes, seconds = divmod(remainder, 60)
-    #     milliseconds = timedelta.microseconds // 10000  # ミリ秒を2桁に丸める
-    #     # 時:分:秒と.ミリ秒に分けて配列として戻す
-    #     return f"{hours:02}:{minutes:02}:{seconds:02}.{milliseconds:02}"
-        
+        return [f"{hours:02}:{minutes:02}:{seconds:02}", f".{milliseconds:02}"]        
 
-    def set_split_display_time(self, split_display_time: str):
+    def set_split_display_time(self, split_display_time):
         if self.split_display_time.__len__() == 3:
             # 要素数が3つの時は一番古いデータを削除する
             self.split_display_time.pop(0)
-        # "XX:XX:XX.XX" の形式で格納
         self.split_display_time.append(split_display_time)
 
     def set_rap_display_time(self, rap_display_time):
