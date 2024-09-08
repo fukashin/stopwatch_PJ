@@ -123,9 +123,9 @@ def reset_spl_button():
         
         # ラップタイムとスプリットタイムのラベルをリセット
         for lap_time_label in lap_time_labels:
-            lap_time_label.configure(text=f"{lap_time_labels.index(lap_time_label)+1}. -- : -- : --")
+            lap_time_label.configure(text=f"{lap_time_labels.index(lap_time_label)+1}. -- : -- : -- : --")
         for split_time_label in split_time_labels:
-            split_time_label.configure(text=f"{split_time_labels.index(split_time_label)+1}. -- : -- : --")
+            split_time_label.configure(text=f"{split_time_labels.index(split_time_label)+1}. -- : -- : -- : --")
 
         
 
