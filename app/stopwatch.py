@@ -21,6 +21,7 @@ class StopWatch:
 
     def stop(self):
         self.is_running = False
+        self.count_up_time = None
 
     def record_split_time(self):
         self.split_time.append(self.elapsed_time)
