@@ -2,7 +2,7 @@
 # from 呼び出し元ファイル名　import 呼び出しクラス　で参照できるようになる
 from stopwatch import StopWatch
 
-class stopwatchactivityhandler:
+class StopwatchActivityHandler:
     def __init__(self):
         # StopWatchクラスのインスタンスを作成し、stopwatch属性に格納
         self.stopwatch = StopWatch()
