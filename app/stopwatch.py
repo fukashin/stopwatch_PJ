@@ -101,32 +101,16 @@ class StopWatch:
     #     return f"{hours:02}:{minutes:02}:{seconds:02}.{milliseconds:02}"
         
 
-    def set_split_display_time(self, split_display_time):
-        if self.split_time.__len__() == 3:
+    def set_split_display_time(self, split_display_time: str):
+        if self.split_display_time.__len__() == 3:
             # 要素数が3つの時は一番古いデータを削除する
-            self.split_time.pop(0)
-        self.split_time.append(split_display_time)
+            self.split_display_time.pop(0)
+        # "XX:XX:XX.XX" の形式で格納
+        self.split_display_time.append(split_display_time)
 
     def set_rap_display_time(self, rap_display_time):
-        if self.rap_time.__len__() == 3:
+        if self.rap_display_time.__len__() == 3:
             # 要素数が3つの時は一番古いデータを削除する
-            self.rap_time.pop(0)
-        self.rap_time.append(rap_display_time)
-    # チームA修正箇所
-    # def set_split_display_time(self, split_display_time):
-    #     if self.split_time.__len__() >= 4:
-    #         # 要素数が3つの時は一番古いデータを削除する
-    #         self.split_time.pop(0)
-    #         self.split_display_time.pop(0)
-    #     self.split_display_time.append(split_display_time)
-    #     # print(self.split_display_time[0])
+            self.rap_display_time.pop(0)
+        self.rap_display_time.append(rap_display_time)
 
-    # def set_rap_display_time(self, rap_display_time):
-
-    #     if self.rap_time.__len__() >= 4:
-    #         # 要素数が3つの時は一番古いデータを削除する
-
-    #         self.rap_time.pop(0)
-    #         self.rap_display_time.pop(0)
-    #     self.rap_display_time.append(rap_display_time)
-    #     # print(self.rap_display_time[0])
