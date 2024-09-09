@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import font
 
-from StopWatchActivityHandler import StopWatchActivityHandler
+from stopwatch_activity_handler import StopwatchActivityHandler
 
 # メインウィンドウの初期化
 root = ctk.CTk() 
@@ -18,8 +18,8 @@ large_font = ctk.CTkFont(family="Helvetica", size=68, weight="bold")  # 大き�
 small_font = ctk.CTkFont(family="Helvetica", size=24, weight="bold")  # ミリ秒部分の小さな文字用
 medium_font = ctk.CTkFont(family="Helvetica", size=16, weight="bold")  # 中程度の文字用
 
-    # StopWatchActivityHandlerのインスタンス作成
-activity_handler = StopWatchActivityHandler()
+# StopwatchActivityHandlerのインスタンス作成
+activity_handler = StopwatchActivityHandler()
 
 
 
@@ -65,8 +65,9 @@ for i in range(3):
 # ストップウォッチを更新する関数
 def update_time():
     if activity_handler.stopwatch.is_running:
-        main_time_label.configure(text=activity_handler.stopwatch.display_time)  # ここで時間を更新
-        activity_handler.stopwatch.count_up()
+        main_time_label.configure(text=activity_handler.stopwatch.display_time[0])  # ここで時間を更新
+        millisecond_label.configure(text=activity_handler.stopwatch.display_time[1])  # ここで時間を更新
+        # activity_handler.stopwatch.count_up()
         root.after(10, update_time)  # 10ms後に再度この関数を呼び出す
 
 
@@ -92,27 +93,20 @@ def reset_spl_button():
         activity_handler.rap_split()
 
         # ラップタイムを取得して表示
-        rap_times = activity_handler.stopwatch.rap_time
-        # ラップタイムの要素数が表示以上か判定
-        if len(rap_times) >= len(lap_time_labels):
-            # ラップタイムが3つ以上ある場合、後ろから3つの要素を取り出す
-            display_times = rap_times[-len(lap_time_labels):]  # 後ろから3つの要素を取得
-        else:
-            # ラップタイムが3つ未満の場合、そのまま全てを表示
-            display_times = rap_times
+        rap_times = activity_handler.stopwatch.rap_display_time
+ 
+        # ラップタイムをそのまま全てを表示
+        display_times = rap_times
 
         # 取得したラップタイムをラベルに表示
         for i, time in enumerate(display_times):
             lap_time_labels[i].configure(text=f"{i+1}. {time}")  # ラベルを更新
 
         # スプリットタイムを取得して表示
-        split_times = activity_handler.stopwatch.split_time
-        if len(split_times) >= len(split_time_labels):
-            # スプリットタイムも後ろから3つの要素を取り出す
-            display_split_times = split_times[-len(split_time_labels):]
-        else:
-            # スプリットタイムが3つ未満の場合、そのまま全てを表示
-            display_split_times = split_times
+        split_times = activity_handler.stopwatch.split_display_time
+
+        # スプリットタイムをそのまま全てを表示
+        display_split_times = split_times
 
         for i, time in enumerate(display_split_times):
             split_time_labels[i].configure(text=f"{i+1}. {time}")  # ラベルを更新
