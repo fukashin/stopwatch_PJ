@@ -68,7 +68,7 @@ def update_time():
         main_time_label.configure(text=activity_handler.stopwatch.display_time[0])  # ここで時間を更新
         millisecond_label.configure(text=activity_handler.stopwatch.display_time[1])  # ここで時間を更新
         # activity_handler.stopwatch.count_up()
-        root.after(10, update_time)  # 10ms後に再度この関数を呼び出す
+        root.after(5, update_time)  # 10ms後に再度この関数を呼び出す
 
 
 # スタート、ストップボタンを押したときの処理関数

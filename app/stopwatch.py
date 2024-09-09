@@ -21,7 +21,6 @@ class StopWatch:
 
     def stop(self):
         self.is_running = False
-        self.count_up_time = None
 
     def record_split_time(self):
         self.split_time.append(self.elapsed_time)
@@ -54,15 +53,24 @@ class StopWatch:
             self.display_time = self.get_display_time(0)
             self.rap_display_time.clear()
             self.split_display_time.clear()
-            self.count_up_time: datetime = None
         else:
             raise Exception("動作中にリセットが実行されました")
         
     def count_up(self):
+        last_time = time.time()
         while self.is_running:
             if self.elapsed_time < 359999999:
-                time.sleep(1/1000) # 1ミリ秒ごとにカウントアップ
-                self.elapsed_time += 1
+                # カウントアップ上限よりも値が小さい場合
+                current_time = time.time()
+                # 経過時間を計算
+                dt = current_time - last_time
+                # 現在時刻を控える
+                last_time = current_time
+                self.elapsed_time += dt * 1000
+                # 0.01 - dt 秒を待機
+                time.sleep(max(0, 0.01 - dt))
+                # 経過時間をフォーマットされた形式で格納
+                self.display_time = self.get_display_time(self.elapsed_time)
 
     def get_display_time(self, milliseconds):
         # timedelta型に変換
@@ -86,4 +94,3 @@ class StopWatch:
             # 要素数が3つの時は一番古いデータを削除する
             self.rap_display_time.pop(0)
         self.rap_display_time.append(rap_display_time)
-
