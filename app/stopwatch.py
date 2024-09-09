@@ -1,4 +1,5 @@
 import datetime
+import time
 
 
 class StopWatch:
@@ -13,7 +14,6 @@ class StopWatch:
         self.display_time = self.get_display_time(0) # [ ["XX:XX:XX", ".XX"], ... ]
         self.rap_display_time: list = [] # ["XX:XX:XX.XX", ...]
         self.split_display_time: list = [] # ["XX:XX:XX.XX", ...]
-        self.count_up_time: datetime = None
 
     # メソッド
     def start(self):
@@ -59,18 +59,10 @@ class StopWatch:
             raise Exception("動作中にリセットが実行されました")
         
     def count_up(self):
-        if self.elapsed_time < 359999999:
-            # カウントアップ上限よりも値が小さい場合
-            # 前回カウントアップした時間をdt0として設定
-            dt0 = self.count_up_time
-            # 現在時刻をカウントアップとして設定
-            self.count_up_time = datetime.datetime.now()
-            if dt0:
-                # 経過時間を計算
-                dt = self.count_up_time - dt0
-                self.elapsed_time += dt.microseconds // 10000
-            # 経過時間をフォーマットされた形式で格納
-            self.display_time = self.get_display_time(self.elapsed_time)
+        while self.is_running:
+            if self.elapsed_time < 359999999:
+                time.sleep(1/1000) # 1ミリ秒ごとにカウントアップ
+                self.elapsed_time += 1
 
     def get_display_time(self, milliseconds):
         # timedelta型に変換
