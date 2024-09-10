@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import font
 
-from stopwatchactivityhandler import stopwatchactivityhandler
+from stopwatch_activity_handler import StopwatchActivityHandler
 
 # メインウィンドウの初期化
 root = ctk.CTk() 
@@ -19,7 +19,7 @@ small_font = ctk.CTkFont(family="Helvetica", size=24, weight="bold")  # ミリ�
 medium_font = ctk.CTkFont(family="Helvetica", size=16, weight="bold")  # 中程度の文字用
 
     # stopWatchactivityhandlerのインスタンス作成
-activity_handler = stopwatchactivityhandler()
+activity_handler = StopwatchActivityHandler()
 
 
 
@@ -118,7 +118,7 @@ def reset_spl_button():
         activity_handler.reset()
 
         # タイムラベルをリセット
-        main_time_label.configure(text="00: 00 : 00")
+        main_time_label.configure(text="00:00:00")
         millisecond_label.configure(text=".00")
         
         # ラップタイムとスプリットタイムのラベルをリセット
