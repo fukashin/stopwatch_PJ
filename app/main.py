@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import font
 
-from stopwatch_activity_handler import StopwatchActivityHandler
+from app.stopwatch_activity_handler import StopwatchActivityHandler
 
 # メインウィンドウの初期化
 root = ctk.CTk() 
@@ -87,8 +87,6 @@ def reset_spl_button():
     if activity_handler.stopwatch.is_running:
 
         test_time = activity_handler.stopwatch.elapsed_time
-        print(test_time)
-
         # ラップタイムとスプリットタイムを記録するメソッドを呼び出す
         activity_handler.rap_split()
 
