@@ -1,6 +1,6 @@
 # StopWatchActivityHandler.py
 # from 呼び出し元ファイル名　import 呼び出しクラス　で参照できるようになる
-from stopwatch import StopWatch
+from app.stopwatch import StopWatch
 import threading
 
 class StopwatchActivityHandler:
