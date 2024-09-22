@@ -1,29 +1,33 @@
 from app.stopwatch import StopWatch
+import time
+import threading
 
 stopwatch = StopWatch()
 
-loop_counter = 1000
-for i in range(loop_counter):
-    stopwatch.count_up()
-if stopwatch.elapsed_time != loop_counter or stopwatch.display_time != "00:00:01.00":
-    raise Exception("count_upの挙動が正しくありません")
 
-loop_counter = 100000 - stopwatch.elapsed_time
-for i in range(loop_counter):
-    stopwatch.count_up()
-if stopwatch.elapsed_time != 100000 or stopwatch.display_time != "00:01:40.00":
-    raise Exception("count_upの挙動が正しくありません")
+def check_count_up(stopwatch, elapsed_time, count_up_time):
+    stopwatch.elapsed_time = elapsed_time
+    stopwatch.is_running = True
+    thread = threading.Thread(target=stopwatch.count_up)
+    thread.start()
+    time.sleep(count_up_time)
+    stopwatch.is_running = False
+    thread.join()
+    base_time = (count_up_time + elapsed_time) * 1000
+    is_exception = False
+    if elapsed_time == 359999999:
+        if not stopwatch.elapsed_time <= 359999999:
+            is_exception = True
+    elif not ((base_time - 10) <= stopwatch.elapsed_time <= base_time):
+        is_exception = True
+    if is_exception:
+        raise Exception(f"count_upの挙動が正しくありません。count_up_time:{count_up_time}, elapsed_time:{stopwatch.elapsed_time}")
+    stopwatch.elapsed_time = 0
 
-loop_counter = 10000000 - stopwatch.elapsed_time
-for i in range(loop_counter):
-    stopwatch.count_up()
-if stopwatch.elapsed_time != 10000000 or stopwatch.display_time != "02:46:40.00":
-    raise Exception("count_upの挙動が正しくありません")
 
-stopwatch.elapsed_time = 359999999
-stopwatch.display_time = "99:59:59.99"
-stopwatch.count_up()
-if stopwatch.elapsed_time != 359999999 or stopwatch.display_time != "99:59:59.99":
-    raise Exception("count_upの挙動が正しくありません")
+check_count_up(stopwatch, 0, 1)
+check_count_up(stopwatch, 0, 3)
+check_count_up(stopwatch, 0, 10)
+check_count_up(stopwatch, 359999999, 1)
 
 print("テストに合格しました")
