@@ -11,7 +11,7 @@ class StopWatch:
         self.is_running: bool = False
         self.rap_time: list = []
         self.split_time: list = []
-        self.display_time = self.get_display_time(0) # [ ["XX:XX:XX", ".XX"], ... ]
+        self.display_time = self.get_display_time(0) # ["XX:XX:XX", ".XX"]
         self.rap_display_time: list = [] # ["XX:XX:XX.XX", ...]
         self.split_display_time: list = [] # ["XX:XX:XX.XX", ...]
 
