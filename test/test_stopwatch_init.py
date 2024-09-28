@@ -14,7 +14,13 @@ if stopwatch.rap_time != []:
 if stopwatch.split_time != []:
     raise Exception("split_timeが正しく初期化されていません")
 
-if stopwatch.display_time != "00:00:00.00":
+if stopwatch.display_time != ["00:00:00", ".00"]:
     raise Exception("display_timeが正しく初期化されていません")
+
+if stopwatch.rap_display_time != []:
+    raise Exception("rap_display_timeが正しく初期化されていません")
+
+if stopwatch.split_display_time != []:
+    raise Exception("split_display_timeが正しく初期化されていません")
 
 print("テストに合格しました")
