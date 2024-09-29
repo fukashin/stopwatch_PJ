@@ -1,6 +1,6 @@
 .venv/
 app/__pycache__/
 
-test/
+test/__pycache__/
 
 build/
